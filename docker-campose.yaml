@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./backend
+    container_name: instadew_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:15
+    container_name: instadew_db
+    restart: always
+    environment:
+      POSTGRES_USER: instadew_user
+      POSTGRES_PASSWORD: instadew_password
+      POSTGRES_DB: instadew_db
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:latest
+    container_name: instadew_redis
+    ports:
+      - "6379:6379"
+
+volumes:
+  db_data:
+  redis_data:
