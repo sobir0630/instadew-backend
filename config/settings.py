@@ -110,7 +110,7 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     "ALGORITHM": "HS256",
     "AUTH_HEADER_TYPES": ("Bearer",),
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
 
@@ -142,7 +142,7 @@ EMAIL_USE_TLS = False
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
 
-AUTH_USER_MODEL = os.getenv("AUTH_USER_MODEL")
+AUTH_USER_MODEL = "users.CustomUser"
 
 ROOT_URLCONF = 'config.urls'
 

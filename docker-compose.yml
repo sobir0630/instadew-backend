@@ -1,29 +1,14 @@
-version: "3.9"
-
 services:
   backend:
-    build: ./backend
+    build: .
     container_name: instadew_backend
     ports:
       - "8000:8000"
-    volumes:
-      - ./backend:/app
     env_file:
       - .env
     depends_on:
       - db
       - redis
-
-  frontend:
-    build: ./frontend
-    container_name: instadew_frontend
-    ports:
-      - "3000:5173"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
-    depends_on:
-      - backend
 
   db:
     image: postgres:15
