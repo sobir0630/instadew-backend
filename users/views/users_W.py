@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
+from rest_framework_simplejwt.views import TokenRefreshView
 
 from users.serializers import UserSerializer, LoginSerializer
 from users.models import CustomUser
@@ -60,6 +61,20 @@ class UserLoginViewSet(ModelViewSet):
         else:
             return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
         
+
+
+class SafeTokenRefreshView(TokenRefreshView):
+
+    def post(self, request, *args, **kwargs):
+        try:
+            return super().post(request, *args, **kwargs)
+
+        except Exception:
+            return Response(
+                {"detail": "Session expired"},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def check_password_view(request):

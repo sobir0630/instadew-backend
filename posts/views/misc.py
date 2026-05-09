@@ -5,6 +5,7 @@ from posts.serializers import UserPostSerilizer
 from posts.models import Post
 from users.models import CustomUser
 
+
 User = CustomUser
 
 class UserProfileView(ReadOnlyModelViewSet):
@@ -22,20 +23,3 @@ class UserProfileView(ReadOnlyModelViewSet):
             return Post.objects.none()
         
         return Post.objects.filter(user=user).order_by("-created_at")
-
-
-    # def get(self, request):
-    #     username = request.GET.get("username")
-
-    #     if not username:
-    #         return Response({'error': "username required"})
-        
-    #     try:
-    #         user = User.objects.get(username=username)
-    #     except User.DoesNotExist:
-    #         return Response({'error': "user not found"})
-        
-    #     posts = Post.objects.filter(user=user).order_by("-created_at")
-    #     posts_data = UserPostSerilizer(posts, many=True).data
-
-    #     return Response({"posts": posts_data})

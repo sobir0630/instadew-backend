@@ -51,7 +51,8 @@ urlpatterns = [
     path('posts/', include('posts.urls')),
     path('comments/', include('comments.urls')),
     path('follows/', include('follows.urls')),
-    path('messages/', include('chat.urls'))
+    path('messages/', include('chat.urls')),
+    path('videos/', include('video.urls')),
 ]
 
 if settings.DEBUG:
